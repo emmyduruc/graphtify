@@ -1,87 +1,40 @@
 $dark-theme: true !default;
-$primary-color: #f8bbd0 !default;
-$accent-color: #6a1b9a !default;
+$primary-color: #242038 !default;
+$accent-color: #ABC8C0 !default;
 
-@if $dark-theme {
-  $primary-color: darken($primary-color, 60%);
-  $accent-color: lighten($accent-color, 60%);
-}
-.home{
-  background-color: green;
-  height: 100vh;
+.home {
+  background-color: $accent-color;
+
   width: 100%;
   cursor: pointer;
-  overflow-x: scroll;
-  position: sticky;
+
   top: 50px;
-  ::-webkit-scrollbar-track {
-    // background-color: #a6ebc9;
-  }
-  ::-webkit-scrollbar {
-    width: 5px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: #b0b0b0;
-  }
 }
-.home-content{
+
+.home-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
-  width: 80%
+  width: 80%;
 }
-.media-plan-cont{
-  margin-bottom: 0.5rem;
+.budget {
+  margin-left: 4rem;
 }
-.input{
-  width: 100%;
-  border-radius: 0.5rem;
-  height: 2rem;
-  border: none;
+.keep-consistent {
+  margin-left: 3rem;
 }
-.date{
+.button-container {
   display: flex;
+  margin: 4rem;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
-.start-date{
-  border-radius: 0.5rem;
-  height: 2rem;
-  border: none;
-  width: 25rem;
+.plan-button {
+  background-color: $accent-color;
+  border: 1px solid;
+  border-radius: 6px;
+  padding: 0.7rem;
+  font-size: 15px;
 }
-.end-date{
-  border-radius: 0.5rem;
-  height: 2rem;
-  border: none;
-  width: 25rem;
-}
-.media-data-header{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
-// .media-values{
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: space-between;
-// }
-.individual-values-row{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.button {
-  background-color: $primary-color;
-  border: 1px solid $accent-color;
-  border-radius: 3px;
-}
-
-
-  

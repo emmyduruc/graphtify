@@ -1,11 +1,24 @@
 import { mockdbData } from "../../assets/mockdbData";
 import "./style.scss";
+import React, { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import RowValues from "../RowValues/RowValues";
+import GraphView from "../graph/GraphView";
+
+type Props = {
+  id: string;
+  name: string;
+  checkId: string;
+};
 const Home = () => {
-  console.log(mockdbData);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+ 
+
   return (
     <div className="home">
       <div className="home-content">
-        {/* <label>Media Plan</label><br></br> */}
         <div>
           <h4 className="media-plan-cont">Media Plan</h4>
           <input className="input" />
@@ -13,26 +26,39 @@ const Home = () => {
         <div aria-label="date" className="date">
           <div aria-label="start-date">
             <h4 className="media-plan-cont">Start date</h4>
-            <input
-              className="start-date"
-              type="date"
-              id="end"
-              name="trip-start"
-              value="2018-07-22"
-              min="2018-01-01"
-              max="2018-12-31"
+            <DatePicker
+              isClearable
+              filterDate={(d) => {
+                return new Date() > d;
+              }}
+              placeholderText="Select Start Date"
+              className="end-date"
+              showTimeSelect
+              dateFormat="MMMM d, yyyy h:mmaa"
+              selected={startDate}
+              selectsStart
+              startDate={startDate}
+              endDate={endDate}
+              onChange={(date: any) => setStartDate(date)}
             />
           </div>
           <div aria-label="end-date">
             <h4 className="media-plan-cont">End date</h4>
-            <input
+            <DatePicker
+              isClearable
+              filterDate={(d) => {
+                return new Date() > d;
+              }}
+              placeholderText="Select End Date"
+              showTimeSelect
               className="end-date"
-              type="date"
-              id="start"
-              name="trip-start"
-              value="2018-07-22"
-              min="2018-01-01"
-              max="2022-12-31"
+              selected={endDate}
+              dateFormat="MMMM d, yyyy h:mmaa"
+              selectsEnd
+              startDate={startDate}
+              endDate={endDate}
+              minDate={startDate}
+              onChange={(date: any) => setEndDate(date)}
             />
           </div>
         </div>
@@ -40,20 +66,29 @@ const Home = () => {
           {mockdbData.map((ele, i) => (
             <div className="media-data-header" aria-label="media-header">
               <h4>{ele.content.channel}</h4>
-              <h4>{ele.content.budget}</h4>
-              <h4>{ele.content.keep_consistent}</h4>
-              <h4>{ele.content.exclude}</h4>
+              <h4 className="budget">{ele.content.budget}</h4>
+              <h4 className="keep-consistent">
+                {ele.content.keep_consistent.name}
+              </h4>
+              <h4>{ele.content.exclude.name}</h4>
             </div>
           ))}
-          <div className="media-values" aria-label="media-values">
-            <div className="individual-values-row" aria-label="individual-values">
-              <h4>SEA</h4>
-              <input type="text" />
-              <input type="checkbox" id="scales" name="scales" />
-              <input type="checkbox" id="scales" name="scales" />
-            </div>
-          </div>
+
+          {mockdbData[0].channels.map((ele) => {
+            return(<RowValues key={ele.id} rowChannel={ele} />)
+            
+          })}
         </div>
+        <div className="button-contanier" aria-label="buttons">
+          <button className="plan-button ">Copy plan</button>
+          <button className="plan-button ">Save plan</button>
+          <button className="plan-button " >
+        view graph
+      </button>
+     
+        </div>
+     
+        <div><GraphView/></div>
       </div>
     </div>
   );
