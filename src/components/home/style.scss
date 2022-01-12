@@ -1,16 +1,24 @@
 $dark-theme: true !default;
 $primary-color: #242038 !default;
-$accent-color: #ABC8C0 !default;
+$accent-color: #abc8c0 !default;
 
 .home {
   background-color: $accent-color;
-
   width: 100%;
   cursor: pointer;
-
-  top: 50px;
 }
-
+.media-datas {
+  margin-top: 3rem;
+}
+.media-input {
+  width: 100%;
+  border-radius: 1rem;
+  height: 2rem;
+  border: none;
+}
+.media-input:focus {
+  outline-width: 0;
+}
 .home-content {
   display: flex;
   flex-direction: column;
@@ -22,19 +30,47 @@ $accent-color: #ABC8C0 !default;
 .budget {
   margin-left: 4rem;
 }
-.keep-consistent {
-  margin-left: 3rem;
-}
-.button-container {
+.btncontainer {
   display: flex;
-  margin: 4rem;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: flex-start;
+  gap: 3rem;
+  margin-top: 3rem;
 }
+
 .plan-button {
   background-color: $accent-color;
   border: 1px solid;
   border-radius: 6px;
   padding: 0.7rem;
   font-size: 15px;
+}
+.plan-button:hover {
+  background-color: #cff;
+}
+
+.keep-consistent {
+  margin-left: 3rem;
+}
+@media (max-width: 850px) {
+  .home-content {
+    width: 100%;
+  }
+  .keep-consistent {
+    margin-left: 5rem;
+    font-size: 0.8rem;
+  }
+  .budget {
+    margin-left: 4rem;
+    font-size: 0.8rem;
+  }
+  .channel {
+    font-size: 0.8rem;
+  }
+  .exclude {
+    font-size: 0.8rem;
+  }
+  h2 {
+    font-size: 3px;
+  }
 }

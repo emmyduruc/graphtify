@@ -1,0 +1,21 @@
+.date {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.end-date {
+  border-radius: 1rem;
+  height: 2rem;
+  border: none;
+  width: 25rem;
+}
+.end-date:focus {
+  outline-width: 0;
+}
+
+@media (max-width: 850px) {
+  .end-date {
+    width: 10rem;
+  }
+}

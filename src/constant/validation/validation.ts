@@ -4,7 +4,7 @@ const defaultOptions = {
   significantDigits: 2,
   thousandsSeparator: ",",
   decimalSeparator: ".",
-  symbol: "$",
+  symbol: "usd",
   option: "",
 };
 // export const Validation = () => {
@@ -33,9 +33,10 @@ const defaultOptions = {
 //   />
 // );
 //};
-export const currencyFormatter = (value:any, ...args:any) => {
-  const options = { ...defaultOptions, ...args};
-  value = Number(value).toFixed(options.significantDigits);
+export const currencyFormatter = (value: string | number) => {
+  if (typeof value !== "number") value = 0.0;
+  const options = { ...defaultOptions };
+  value = value.toFixed(options.significantDigits);
   const [currency, decimal] = value.split(".");
 
   return `${currency.replace(
@@ -43,4 +44,4 @@ export const currencyFormatter = (value:any, ...args:any) => {
     options.thousandsSeparator
   )}${options.decimalSeparator}${decimal} ${options.symbol} `;
 };
-console.log(currencyFormatter(4738.44))
+console.log(currencyFormatter(476));

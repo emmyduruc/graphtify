@@ -5,6 +5,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import RowValues from "../RowValues/RowValues";
 import GraphView from "../graph/GraphView";
+import Datepicker from "../datepicker/DatePicker";
 
 type Props = {
   id: string;
@@ -14,54 +15,22 @@ type Props = {
 const Home = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
- 
+  const [hideGraph, setHideGraph] = useState(false);
+
+  const handleClick = () => {
+    if (hideGraph === false) {
+      setHideGraph(true);
+    } else setHideGraph(false);
+  };
 
   return (
     <div className="home">
       <div className="home-content">
         <div>
           <h4 className="media-plan-cont">Media Plan</h4>
-          <input className="input" />
+          <input className="media-input" />
         </div>
-        <div aria-label="date" className="date">
-          <div aria-label="start-date">
-            <h4 className="media-plan-cont">Start date</h4>
-            <DatePicker
-              isClearable
-              filterDate={(d) => {
-                return new Date() > d;
-              }}
-              placeholderText="Select Start Date"
-              className="end-date"
-              showTimeSelect
-              dateFormat="MMMM d, yyyy h:mmaa"
-              selected={startDate}
-              selectsStart
-              startDate={startDate}
-              endDate={endDate}
-              onChange={(date: any) => setStartDate(date)}
-            />
-          </div>
-          <div aria-label="end-date">
-            <h4 className="media-plan-cont">End date</h4>
-            <DatePicker
-              isClearable
-              filterDate={(d) => {
-                return new Date() > d;
-              }}
-              placeholderText="Select End Date"
-              showTimeSelect
-              className="end-date"
-              selected={endDate}
-              dateFormat="MMMM d, yyyy h:mmaa"
-              selectsEnd
-              startDate={startDate}
-              endDate={endDate}
-              minDate={startDate}
-              onChange={(date: any) => setEndDate(date)}
-            />
-          </div>
-        </div>
+        <Datepicker />
         <div aria-label="media-datas">
           {mockdbData.map((ele, i) => (
             <div className="media-data-header" aria-label="media-header">
@@ -75,20 +44,18 @@ const Home = () => {
           ))}
 
           {mockdbData[0].channels.map((ele) => {
-            return(<RowValues key={ele.id} rowChannel={ele} />)
-            
+            return <RowValues key={ele.id} rowChannel={ele} />;
           })}
         </div>
-        <div className="button-contanier" aria-label="buttons">
+        <div className="btncontainer" aria-label="buttons">
           <button className="plan-button ">Copy plan</button>
           <button className="plan-button ">Save plan</button>
-          <button className="plan-button " >
-        view graph
-      </button>
-     
+          <button onClick={handleClick} className="plan-button ">
+            {!hideGraph ? "view graph" : "close graph"}
+          </button>
         </div>
-     
-        <div><GraphView/></div>
+
+        <div>{hideGraph ? <GraphView /> : null}</div>
       </div>
     </div>
   );
