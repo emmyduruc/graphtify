@@ -36,10 +36,11 @@ let myArray = []
           type="text"
           placeholder={`${handleClick()}`}
           value={inputEvent}
+          onBlur={handleClick}
           onChange={ (e)=>setInputEvent(e.target.value)}
           className="sea-input"
         />
-          <button onClick={handleClick}>save</button>
+          {/* <button onClick={handleClick}>save</button> */}
         <div>
           <input
             type="radio"
