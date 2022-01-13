@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { mockdbData } from "../../assets/mockdbData";
 import { currencyFormatter } from "../../constant/validation/validation";
 import "./style.scss";
@@ -14,7 +14,7 @@ type Props = {
 
 const RowValues = ({ rowChannel }: any) => {
   const dispatch = useDispatch();
-  const [inputEvent, setInputEvent] = useState<string>();
+  const [inputEvent, setInputEvent] = useState<string | undefined>();
   console.log("sum up event", inputEvent);
 
   // const dispatchEnteredValue = () => {
@@ -28,6 +28,10 @@ const RowValues = ({ rowChannel }: any) => {
       .replace(/(?=(\d{3})+(\D))\B/g, ",");
     setInputEvent(formattedValues);
   };
+
+  useEffect(() => {
+    dispatch(budgetValue(inputEvent));
+  }, []);
 
   return (
     <div>
