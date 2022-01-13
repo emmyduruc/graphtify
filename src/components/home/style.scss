@@ -6,6 +6,9 @@ $accent-color: #abc8c0 !default;
   background-color: $accent-color;
   width: 100%;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .media-datas {
   margin-top: 3rem;
@@ -25,7 +28,7 @@ $accent-color: #abc8c0 !default;
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
-  width: 80%;
+  width: 60%;
 }
 .budget {
   margin-left: 4rem;
@@ -50,7 +53,7 @@ $accent-color: #abc8c0 !default;
 }
 
 .keep-consistent {
-  margin-left: 3rem;
+  margin-left: 17rem;
 }
 @media (max-width: 850px) {
   .home-content {

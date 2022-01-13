@@ -30,6 +30,10 @@
 .channel-name {
   max-width: 30px;
 }
+.number-format {
+  padding: 3px;
+  background-color: white;
+}
 @media (max-width: 850px) {
   .channel-name {
     font-size: 0.9rem;
