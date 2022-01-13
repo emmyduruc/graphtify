@@ -34,7 +34,7 @@ const RowValues = ({ rowChannel }: any) => {
       <div className="individual-values-row" aria-label="individual-values">
         <h4 className="channel-name">{rowChannel.name} </h4>
         <input
-          placeholder="0.00"
+          placeholder="$0.00"
           type="text"
           name="price"
           onChange={(e) => handleOnchange(e)}

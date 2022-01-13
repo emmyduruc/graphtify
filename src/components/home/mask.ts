@@ -5,7 +5,7 @@ export const currencyMask = (e: React.ChangeEvent<HTMLInputElement>) => {
   //checks if the value is a string and then it will be emty string
   value = value.replace(/\D/g, "");
   //validates for 2 decimal values
-  value.replace(/(\d)(\d{2})$/, "$1. $2");
+  value.replace(/(\d)(\d{3})$/, "$1. $2");
   //thousand seperator
   value.replace(/(?=(\d{3})+(\D))\B/g, ",");
   e.target.value = value;
