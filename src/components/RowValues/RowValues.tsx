@@ -14,39 +14,66 @@ type Props = {
 
 const RowValues = ({ rowChannel }: any) => {
   const dispatch = useDispatch();
-  const [inputEvent, setInputEvent] = useState<string | undefined>();
-  console.log("sum up event", inputEvent);
+  const [inputEvent, setInputEvent] = useState<string>("");
 
   // const dispatchEnteredValue = () => {
   //   dispatch(budgetValue);
   // };
 
   const handleOnchange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("event", e.target.value);
     let formattedValues = e.target.value
+      //checks if the value is a string and then it will be emty string
       .replace(/\D/g, "")
+      //validates for 2 decimal values
       .replace(/(\d)(\d{2})$/, "$1.$2")
+      //thousand seperator
       .replace(/(?=(\d{3})+(\D))\B/g, ",");
     setInputEvent(formattedValues);
+    dispatch(
+      budgetValue({
+        channelName: rowChannel.name,
+        channelValue: formattedValues,
+      })
+    );
   };
 
-  useEffect(() => {
-    dispatch(budgetValue(inputEvent));
-  }, []);
+  const [finalValueOfChannels, setFinalValuesOfChannels] = useState();
+
+  //console.log("valuess", myArrayreduce((a, b) => a + b, 0));
+
+  console.log("final Value", finalValueOfChannels);
+  const handleOnBlur = (event: any) => {
+    console.log("event", event);
+    if (event !== undefined) {
+      //dispatch(budgetValue(event.target.value));
+    }
+    setFinalValuesOfChannels(event.target.value);
+  };
 
   return (
     <div>
       <div className="individual-values-row" aria-label="individual-values">
         <h4 className="channel-name">{rowChannel.name} </h4>
-        <input
-          placeholder="$0.00"
-          type="text"
-          name="price"
-          onChange={(e) => handleOnchange(e)}
-          className="sea-input"
-          value={inputEvent}
-          // onBlur={(e) => handleOnchange(e)}
-          //title="Currency"
-        />
+        <div className="input-box-render">
+          <span>$</span>
+          <div className="input-box-with-error">
+            <input
+              placeholder="0.00"
+              type="text"
+              name="price"
+              onChange={(e) => handleOnchange(e)}
+              className="sea-input"
+              value={inputEvent}
+              //onBlur={handleOnBlur}
+              //title="Currency"
+            />
+            <span className="validation-error">
+              {inputEvent === "" ? "please enter a number" : null}
+            </span>
+          </div>
+        </div>
+
         <div>
           <input
             type="radio"

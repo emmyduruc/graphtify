@@ -1,10 +1,11 @@
 export const mockdbData = [
   {
+    id: 1,
     content: {
       channel: "Channel",
       budget: "Budget",
-      keep_consistent: { name: "Keep consistent",  },
-      exclude: { name: "Exclude",},
+      keep_consistent: { name: "Keep consistent" },
+      exclude: { name: "Exclude" },
     },
     channels: [
       {

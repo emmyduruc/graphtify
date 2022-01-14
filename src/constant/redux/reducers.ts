@@ -1,21 +1,21 @@
-import { BudgetValues } from "./actions";
+import { Action, BudgetNew, BudgetValues } from "./actions";
 import { budgetState } from "./reduxTypes";
 
-const initState = {
+type ForInit = {
+  budgets: BudgetNew[];
+};
+
+const initState: ForInit = {
   budgets: [],
 };
 
-const budgetReducer = (state = initState, action: BudgetValues) => {
+const budgetReducer = (state = initState, action: Action) => {
   switch (action.type) {
     case "BUDGETS": {
-      const currentValues = action.payload;
       const existingBudgets = state.budgets;
-      // if (existingBudgets.length === 0) {
-      //   return existingBudgets.reduce((a, b) => a + b, 0);
-      // }
       return {
         ...state,
-        budgets: [...existingBudgets, currentValues],
+        budgets: [...existingBudgets, action.payload],
       };
     }
     default:

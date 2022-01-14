@@ -33,7 +33,11 @@ const Home = () => {
         <Datepicker />
         <div aria-label="media-datas">
           {mockdbData.map((ele, i) => (
-            <div className="media-data-header" aria-label="media-header">
+            <div
+              key={ele.id}
+              className="media-data-header"
+              aria-label="media-header"
+            >
               <h4>{ele.content.channel}</h4>
               <h4 className="budget">{ele.content.budget}</h4>
               <h4 className="keep-consistent">

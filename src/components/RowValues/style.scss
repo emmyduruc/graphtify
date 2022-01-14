@@ -23,6 +23,19 @@
 .sea-input:focus {
   outline-width: 0;
 }
+.input-box-render {
+  display: flex;
+  align-items: center;
+}
+.input-box-with-error {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center;
+}
+.validation-error {
+  font-size: 0.8rem;
+  color: red;
+}
 .checkingbox {
   width: 2rem;
   height: 2rem;
