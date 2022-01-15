@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "./style.scss";
 
@@ -13,7 +13,7 @@ const Datepicker = () => {
         <DatePicker
           isClearable
           filterDate={(d) => {
-            return new Date() > d;
+            return new Date() < d;
           }}
           placeholderText="Select Start Date"
           className="end-date"
@@ -23,7 +23,7 @@ const Datepicker = () => {
           selectsStart
           startDate={startDate}
           endDate={endDate}
-          onChange={(date: any) => setStartDate(date)}
+          onChange={(date: Date) => setStartDate(date)}
         />
       </div>
       <div aria-label="end-date">
@@ -31,7 +31,7 @@ const Datepicker = () => {
         <DatePicker
           isClearable
           filterDate={(d) => {
-            return new Date() > d;
+            return new Date() < d;
           }}
           placeholderText="Select End Date"
           showTimeSelect
@@ -42,7 +42,7 @@ const Datepicker = () => {
           startDate={startDate}
           endDate={endDate}
           minDate={startDate}
-          onChange={(date: any) => setEndDate(date)}
+          onChange={(date: Date) => setEndDate(date)}
         />
       </div>
     </div>

@@ -30,8 +30,16 @@ $accent-color: #abc8c0 !default;
   margin-right: auto;
   width: 60%;
 }
+.channel-headers {
+  font-weight: 900;
+}
 .budget {
-  margin-left: 4rem;
+  margin-left: 6rem;
+  font-weight: 900;
+}
+.keep-consistent {
+  margin-left: 7rem;
+  font-weight: 900;
 }
 .btncontainer {
   display: flex;
@@ -39,6 +47,7 @@ $accent-color: #abc8c0 !default;
   justify-content: flex-start;
   gap: 3rem;
   margin-top: 3rem;
+  margin-bottom: 3rem;
 }
 
 .plan-button {
@@ -51,10 +60,11 @@ $accent-color: #abc8c0 !default;
 .plan-button:hover {
   background-color: #cff;
 }
-
-.keep-consistent {
-  margin-left: 17rem;
+.total-sum {
+  color: #4f9d69;
+  font-weight: 900;
 }
+
 @media (max-width: 850px) {
   .home-content {
     width: 100%;

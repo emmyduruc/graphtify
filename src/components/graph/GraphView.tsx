@@ -1,50 +1,72 @@
-import ReactApexChart from "react-apexcharts";
-import { mockdbData } from "../../assets/mockdbData";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+import { useSelector } from "react-redux";
+import { RootState } from "../../assets/types";
 
 const GraphView = () => {
-  const series = [
-    {
-      name: "SEA",
-      data: [9, 67, 45, 55],
-    },
-    {
-      name: "Display",
-      data: [0, 28],
-    },
-    {
-      name: "Social",
-      data: [12, 56, 63],
-    },
-    {
-      name: "Affiliate",
-      data: [2, 5, 1],
-    },
-    {
-      name: "Remarketing",
-      data: [34],
-    },
-  ];
-  const options = {
-    chart: {
-      height: 450,
+  const channelSelectorStates = useSelector(
+    (state: RootState) => state.budgetReducer.budgets
+  );
 
-      stroke: {
-        curve: "smooth",
-      },
-    },
-  };
+  let myDataName =
+    channelSelectorStates.length !== 0
+      ? channelSelectorStates.map((data) => {
+          const num = data.channelValue.replace(/,/g, "");
+          return {
+            name: data.channelName,
+            uv: num,
+          };
+        })
+      : [];
 
   return (
     <div>
       <br />
-      <h4>Graphical analysis</h4>
+      <h4>Graphical analysis of channels</h4>
       <br />
-      <ReactApexChart
-        options={options}
-        series={series}
-        type="line"
-        height={350}
-      />
+
+      <ResponsiveContainer width="90%" aspect={2}>
+        <LineChart
+          width={700}
+          height={700}
+          data={myDataName}
+          margin={{
+            top: 15,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip
+            contentStyle={{ backgroundColor: "#8884d8", color: "#fff" }}
+            itemStyle={{ color: "#fff" }}
+            cursor={false}
+          />
+          <Line
+            type="monotone"
+            dataKey="uv"
+            stroke="#8884d8"
+            strokeWidth="5"
+            dot={{ fill: "#2e4355", stroke: "#8884d8", strokeWidth: 2, r: 5 }}
+            activeDot={{
+              fill: "#2e4355",
+              stroke: "#8884d8",
+              strokeWidth: 5,
+              r: 10,
+            }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
     </div>
   );
 };

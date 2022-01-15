@@ -1,19 +1,13 @@
 import { mockdbData } from "../../assets/mockdbData";
 import "./style.scss";
 import React, { useState } from "react";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import RowValues from "../RowValues/RowValues";
 import GraphView from "../graph/GraphView";
 import Datepicker from "../datepicker/DatePicker";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../constant/redux/actions";
+import { Props, RootState } from "../../assets/types";
 
-type Props = {
-  id: string;
-  name: string;
-  checkId: string;
-};
 const Home = () => {
   const getSummedValue = useSelector(
     (state: RootState) => state.budgetReducer.sum
@@ -32,7 +26,11 @@ const Home = () => {
       <div className="home-content">
         <div>
           <h4 className="media-plan-cont">Media Plan</h4>
-          <input className="media-input" />
+          <input
+            className="media-input"
+            type="text"
+            placeholder="set media plan"
+          />
         </div>
         <Datepicker />
         <div aria-label="media-datas">
@@ -42,21 +40,24 @@ const Home = () => {
               className="media-data-header"
               aria-label="media-header"
             >
-              <h4>{ele.content.channel}</h4>
+              <h4 className="channel-headers">{ele.content.channel}</h4>
               <h4 className="budget">{ele.content.budget}</h4>
               <h4 className="keep-consistent">
                 {ele.content.keep_consistent.name}
               </h4>
-              <h4>{ele.content.exclude.name}</h4>
+              <h4 className="channel-headers">{ele.content.exclude.name}</h4>
             </div>
           ))}
 
-          {mockdbData[0].channels.map((ele) => {
+          {mockdbData[0].channels.map((ele: Props) => {
             return <RowValues key={ele.id} rowChannel={ele} />;
           })}
         </div>
         <div>
-          <p>Total value: ${getSummedValue.toFixed(2)} </p>
+          <p>
+            Total value:{" "}
+            <span className="total-sum">${getSummedValue.toFixed(2)} </span>
+          </p>
         </div>
         <div className="btncontainer" aria-label="buttons">
           <button className="plan-button ">Copy plan</button>

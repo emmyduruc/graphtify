@@ -1,24 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./style.scss";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  budgetValue,
-  RootState,
-  sumNumbers,
-} from "../../constant/redux/actions";
+import { budgetValue, sumNumbers } from "../../constant/redux/actions";
+import { BudgetNew, RootState, RowChannelProps } from "../../assets/types";
 
-type BudgetTypes = {
-  channelName: string;
-  channelValue: string;
-};
-const RowValues = ({ rowChannel }: any) => {
+const RowValues = ({ rowChannel }: RowChannelProps) => {
   const dispatch = useDispatch();
-  const [inputEvent, setInputEvent] = useState<BudgetTypes>();
-  const [channelValueSum, setChannelValueSum] = useState<number>(0);
+  const [inputEvent, setInputEvent] = useState<BudgetNew>();
 
-  console.log("channelValueSum", channelValueSum);
-
+  const numArray: Array<number> = [];
+  let newSum = 0;
   const channelSelectorStates = useSelector(
     (state: RootState) => state.budgetReducer.budgets
   );
@@ -38,7 +30,7 @@ const RowValues = ({ rowChannel }: any) => {
   };
 
   const [finalValueOfChannels, setFinalValuesOfChannels] =
-    useState<BudgetTypes>();
+    useState<BudgetNew>();
   if (finalValueOfChannels !== undefined) {
     dispatch(budgetValue(finalValueOfChannels));
   }
@@ -48,14 +40,15 @@ const RowValues = ({ rowChannel }: any) => {
       setFinalValuesOfChannels(inputEvent);
     }
   };
-  const numArray: Array<number> = [];
-  let newSum = 0;
 
   (function () {
     if (channelSelectorStates.length) {
-      channelSelectorStates.map((obj) => {
-        const num = +obj.channelValue.replace(/,/g, "");
-        numArray.push(num);
+      channelSelectorStates.map((channelValues) => {
+        const convertedNumberOfChannels = +channelValues.channelValue.replace(
+          /,/g,
+          ""
+        );
+        numArray.push(convertedNumberOfChannels);
       });
     }
   })();
@@ -67,7 +60,6 @@ const RowValues = ({ rowChannel }: any) => {
       dispatch(sumNumbers(sum));
     }
   })();
-  console.log("newSum ", newSum);
   return (
     <div>
       <div className="individual-values-row" aria-label="individual-values">
@@ -84,9 +76,6 @@ const RowValues = ({ rowChannel }: any) => {
               value={inputEvent ? inputEvent.channelValue : ""}
               onBlur={handleOnBlur}
             />
-            <span className="validation-error">
-              {inputEvent?.channelName === "" ? "please enter a number" : null}
-            </span>
           </div>
         </div>
 

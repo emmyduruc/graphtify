@@ -1,4 +1,0 @@
-
-export type budgetState ={
-    budgets: []
-}

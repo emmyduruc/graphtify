@@ -1,14 +1,8 @@
-import { Action, BudgetNew, BudgetValues } from "./actions";
-import { budgetState } from "./reduxTypes";
-
-export type ForInit = {
-  budgets: BudgetNew[];
-  sum: number;
-};
+import { Action, ForInit } from "../../assets/types";
 
 const initState: ForInit = {
   budgets: [],
-  sum: 0
+  sum: 0,
 };
 
 const budgetReducer = (state = initState, action: Action) => {
@@ -35,19 +29,14 @@ const budgetReducer = (state = initState, action: Action) => {
           budgets: [...existingBudgets, action.payload],
         };
       }
-
-      
     }
-    case "SUMUP":{
-
-    return{
-      ...state,
-      sum : action.payload
+    case "SUMUP": {
+      return {
+        ...state,
+        sum: action.payload,
+      };
     }
 
-    }
-
-     
     default:
       return state;
   }

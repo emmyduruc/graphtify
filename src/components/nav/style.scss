@@ -6,7 +6,7 @@ $accent-color: #6a1b9a !default;
   display: flex;
   flex-direction: row;
   height: 60px;
-  background-color: #4F9D69;
+  background-color: #4f9d69;
 }
 .logoo {
   font-size: 2rem;
@@ -14,6 +14,10 @@ $accent-color: #6a1b9a !default;
   display: flex;
   align-items: center;
   color: #fff;
-  margin-left: 9.2rem;
+  width: 50%;
 }
-
+@media (max-width: 850px) {
+  .logoo {
+    width: 30%;
+  }
+}
