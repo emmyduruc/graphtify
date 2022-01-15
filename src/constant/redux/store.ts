@@ -3,7 +3,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import budgetReducer from "./reducers";
 
-const initState = { budgetReducer: { budgets: [] } };
+const initState = { budgetReducer: { budgets: [],sum: 0,} };
 const rootReducers = combineReducers({ budgetReducer });
 
 const storeFactory = () => {
@@ -16,5 +16,5 @@ const storeFactory = () => {
   );
   return reduxStore;
 };
-
+export type AppState = ReturnType<typeof rootReducers>
 export default storeFactory;

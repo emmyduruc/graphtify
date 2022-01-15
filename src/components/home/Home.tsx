@@ -6,6 +6,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import RowValues from "../RowValues/RowValues";
 import GraphView from "../graph/GraphView";
 import Datepicker from "../datepicker/DatePicker";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../constant/redux/actions";
 
 type Props = {
   id: string;
@@ -13,8 +15,10 @@ type Props = {
   checkId: string;
 };
 const Home = () => {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const getSummedValue = useSelector(
+    (state: RootState) => state.budgetReducer.sum
+  );
+
   const [hideGraph, setHideGraph] = useState(false);
 
   const handleClick = () => {
@@ -50,6 +54,9 @@ const Home = () => {
           {mockdbData[0].channels.map((ele) => {
             return <RowValues key={ele.id} rowChannel={ele} />;
           })}
+        </div>
+        <div>
+          <p>Total value: ${getSummedValue.toFixed(2)} </p>
         </div>
         <div className="btncontainer" aria-label="buttons">
           <button className="plan-button ">Copy plan</button>

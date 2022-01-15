@@ -1,56 +1,73 @@
-import { useEffect, useState } from "react";
-import { mockdbData } from "../../assets/mockdbData";
-import { currencyFormatter } from "../../constant/validation/validation";
+import { useState } from "react";
 import "./style.scss";
 import React from "react";
-import { useDispatch } from "react-redux";
-import { budgetValue } from "../../constant/redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  budgetValue,
+  RootState,
+  sumNumbers,
+} from "../../constant/redux/actions";
 
-type Props = {
-  id: string;
-  name: string;
-  checkId: string;
+type BudgetTypes = {
+  channelName: string;
+  channelValue: string;
 };
-
 const RowValues = ({ rowChannel }: any) => {
   const dispatch = useDispatch();
-  const [inputEvent, setInputEvent] = useState<string>("");
+  const [inputEvent, setInputEvent] = useState<BudgetTypes>();
+  const [channelValueSum, setChannelValueSum] = useState<number>(0);
 
-  // const dispatchEnteredValue = () => {
-  //   dispatch(budgetValue);
-  // };
+  console.log("channelValueSum", channelValueSum);
+
+  const channelSelectorStates = useSelector(
+    (state: RootState) => state.budgetReducer.budgets
+  );
 
   const handleOnchange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("event", e.target.value);
     let formattedValues = e.target.value
-      //checks if the value is a string and then it will be emty string
+      //checks if the value is a string and then it will be empty string
       .replace(/\D/g, "")
       //validates for 2 decimal values
       .replace(/(\d)(\d{2})$/, "$1.$2")
       //thousand seperator
       .replace(/(?=(\d{3})+(\D))\B/g, ",");
-    setInputEvent(formattedValues);
-    dispatch(
-      budgetValue({
-        channelName: rowChannel.name,
-        channelValue: formattedValues,
-      })
-    );
+    setInputEvent({
+      channelName: rowChannel.name,
+      channelValue: formattedValues,
+    });
   };
 
-  const [finalValueOfChannels, setFinalValuesOfChannels] = useState();
+  const [finalValueOfChannels, setFinalValuesOfChannels] =
+    useState<BudgetTypes>();
+  if (finalValueOfChannels !== undefined) {
+    dispatch(budgetValue(finalValueOfChannels));
+  }
 
-  //console.log("valuess", myArrayreduce((a, b) => a + b, 0));
-
-  console.log("final Value", finalValueOfChannels);
-  const handleOnBlur = (event: any) => {
-    console.log("event", event);
-    if (event !== undefined) {
-      //dispatch(budgetValue(event.target.value));
+  const handleOnBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value !== undefined) {
+      setFinalValuesOfChannels(inputEvent);
     }
-    setFinalValuesOfChannels(event.target.value);
   };
+  const numArray: Array<number> = [];
+  let newSum = 0;
 
+  (function () {
+    if (channelSelectorStates.length) {
+      channelSelectorStates.map((obj) => {
+        const num = +obj.channelValue.replace(/,/g, "");
+        numArray.push(num);
+      });
+    }
+  })();
+
+  (function () {
+    if (numArray.length) {
+      const sum = numArray?.reduce((prev, curr) => prev + curr);
+      newSum = sum;
+      dispatch(sumNumbers(sum));
+    }
+  })();
+  console.log("newSum ", newSum);
   return (
     <div>
       <div className="individual-values-row" aria-label="individual-values">
@@ -64,12 +81,11 @@ const RowValues = ({ rowChannel }: any) => {
               name="price"
               onChange={(e) => handleOnchange(e)}
               className="sea-input"
-              value={inputEvent}
-              //onBlur={handleOnBlur}
-              //title="Currency"
+              value={inputEvent ? inputEvent.channelValue : ""}
+              onBlur={handleOnBlur}
             />
             <span className="validation-error">
-              {inputEvent === "" ? "please enter a number" : null}
+              {inputEvent?.channelName === "" ? "please enter a number" : null}
             </span>
           </div>
         </div>
