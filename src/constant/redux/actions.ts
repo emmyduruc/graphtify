@@ -12,3 +12,9 @@ export const sumNumbers = (sumSum: number) => {
     payload: sumSum,
   };
 };
+export const savedBudgets = (budgetsSaved: BudgetNew) => {
+  return {
+    type: "SAVEDBUDGETS",
+    payload: budgetsSaved,
+  };
+};

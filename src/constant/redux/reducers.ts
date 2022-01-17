@@ -3,6 +3,7 @@ import { Action, ForInit } from "../../assets/types";
 const initState: ForInit = {
   budgets: [],
   sum: 0,
+  savedBudgets: [],
 };
 
 const budgetReducer = (state = initState, action: Action) => {
@@ -13,7 +14,6 @@ const budgetReducer = (state = initState, action: Action) => {
       const incomingChannelName = incomingChannel
         ? incomingChannel.channelName
         : "";
-      //const incomingName = incomingCountry ? incomingCountry.name : "";
       const livingBudgets = state.budgets.find((budget) => {
         if (incomingChannelName === budget.channelName) {
           return true;
@@ -34,6 +34,12 @@ const budgetReducer = (state = initState, action: Action) => {
       return {
         ...state,
         sum: action.payload,
+      };
+    }
+    case "SAVEDBUDGETS": {
+      return {
+        ...state,
+        savedBudgets: [...state.savedBudgets, action.payload],
       };
     }
 

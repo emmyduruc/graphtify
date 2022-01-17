@@ -55,7 +55,7 @@ const Home = () => {
         </div>
         <div>
           <p>
-            Total value:{" "}
+            Total budgets:{" "}
             <span className="total-sum">${getSummedValue.toFixed(2)} </span>
           </p>
         </div>
@@ -66,7 +66,6 @@ const Home = () => {
             {!hideGraph ? "view graph" : "close graph"}
           </button>
         </div>
-
         <div>{hideGraph ? <GraphView /> : null}</div>
       </div>
     </div>
