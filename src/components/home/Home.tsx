@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import RowValues from "../RowValues/RowValues";
 import GraphView from "../graph/GraphView";
 import Datepicker from "../datepicker/DatePicker";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Props, RootState } from "../../assets/types";
 
 const Home = () => {

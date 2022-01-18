@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./style.scss";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -58,6 +58,7 @@ const RowValues = ({ rowChannel }: RowChannelProps) => {
       const sum = numArray?.reduce((prev, curr) => prev + curr);
       newSum = sum;
       dispatch(sumNumbers(sum));
+      return newSum;
     }
   })();
   return (
