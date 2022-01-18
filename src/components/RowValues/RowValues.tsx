@@ -49,6 +49,7 @@ const RowValues = ({ rowChannel }: RowChannelProps) => {
           ""
         );
         numArray.push(convertedNumberOfChannels);
+        return convertedNumberOfChannels;
       });
     }
   })();
